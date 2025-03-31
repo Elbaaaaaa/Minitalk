@@ -1,32 +1,37 @@
-NAME_CLIENT = client
-NAME_SERVER = server
-
-SRC_CLIENT = src/client.c
-SRC_SERVER = src/server.c
-
-SRC_COMMON = src/ft_printf_utils.c src/ft_printf.c
-
-OBJ_CLIENT = $(SRC_CLIENT:.c=.o) $(SRC_COMMON:.c=.o)
-OBJ_SERVER = $(SRC_SERVER:.c=.o) $(SRC_COMMON:.c=.o)
-
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
 
-all: $(NAME_CLIENT) $(NAME_SERVER)
+NAME = minitalk
+SRCS = src/server.c \
+		src/client.c \
+		src/ft_printf.c \
+		src/ft_printf_utils.c \
 
-$(NAME_CLIENT): $(OBJ_CLIENT)
-	$(CC) $(CFLAGS) -no-pie -o $(NAME_CLIENT) $(OBJ_CLIENT)
+SRCS_BONUS = src_bonus/server_bonus.c \
+				src_bonus/client_bonus.c \
+				src_bonus/ft_printf_bonus \
+				src_bonus/ft_printf_utils_bonus.c \
 
-$(NAME_SERVER): $(OBJ_SERVER)
-	$(CC) $(CFLAGS) -no-pie -o $(NAME_SERVER) $(OBJ_SERVER)
+OBJS = $(SRCS:.c=.o)
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+bonus: $(OBJS_BONUS)
+	$(CC) $(CFLAGS) -o $(OBJS_BONUS)
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_CLIENT) $(OBJ_SERVER)
+	rm -f $(OBJS) $(OBJS_BONUS)
 
 fclean: clean
-	$(RM) $(NAME_CLIENT) $(NAME_SERVER)
+	rm -f $(NAME) $(OBJS_BONUS)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
