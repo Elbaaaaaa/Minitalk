@@ -12,15 +12,17 @@
 
 #include "../include/Minitalk.h"
 
-void	ack_handler(int sig)
+int g_ack_received = 0;
+
+void ack_handler(int sig)
 {
 	(void)sig;
 	g_ack_received = 1;
 }
 
-void	send_char(int pid, char c)
+void send_char(int pid, char c)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < 8)
@@ -37,10 +39,10 @@ void	send_char(int pid, char c)
 	}
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	int	pid;
-	int	i;
+	int pid;
+	int i;
 
 	i = 0;
 	if (argc == 3)
