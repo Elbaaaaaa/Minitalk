@@ -6,16 +6,16 @@
 /*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 20:16:02 by ebella            #+#    #+#             */
-/*   Updated: 2025/04/10 11:17:09 by ebella           ###   ########.fr       */
+/*   Updated: 2025/04/17 18:47:55 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Minitalk.h"
 
-void sig_handler(int sig, siginfo_t *info, void *context)
+void	sig_handler(int sig, siginfo_t *info, void *context)
 {
-	static int bit = 0;
-	static int i = 0;
+	static int	bit = 0;
+	static int	i = 0;
 
 	(void)context;
 	if (sig == SIGUSR1)
@@ -30,10 +30,10 @@ void sig_handler(int sig, siginfo_t *info, void *context)
 	kill(info->si_pid, SIGUSR2);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int pid;
-	struct sigaction act;
+	int					pid;
+	struct sigaction	act;
 
 	if (argc != 1)
 	{

@@ -6,23 +6,23 @@
 /*   By: ebella <ebella@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:58:49 by ebella            #+#    #+#             */
-/*   Updated: 2025/03/31 14:49:23 by ebella           ###   ########.fr       */
+/*   Updated: 2025/04/20 13:01:02 by ebella           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/Minitalk.h"
 
-int g_ack_received = 0;
+int		g_ack_received = 0;
 
-void ack_handler(int sig)
+void	ack_handler(int sig)
 {
 	(void)sig;
 	g_ack_received = 1;
 }
 
-void send_char(int pid, char c)
+void	send_char(int pid, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 8)
@@ -34,15 +34,16 @@ void send_char(int pid, char c)
 		c >>= 1;
 		while (!g_ack_received)
 			pause();
+		usleep(500);
 		g_ack_received = 0;
 		i++;
 	}
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int pid;
-	int i;
+	int	pid;
+	int	i;
 
 	i = 0;
 	if (argc == 3)
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("Usage: ./client [server_pid] [message]\n");
+		ft_printf("./client [server_pid] [message]\n");
 		return (1);
 	}
 	return (0);
